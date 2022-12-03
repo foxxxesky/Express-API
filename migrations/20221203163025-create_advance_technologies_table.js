@@ -1,8 +1,6 @@
-'use strict';
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up (queryInterface, Sequelize) {
     await queryInterface.createTable('advance_technologies', {
       id: {
         type: Sequelize.INTEGER,
@@ -28,10 +26,10 @@ module.exports = {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         allowNull: false
       }
-    });
+    })
   },
 
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('advance_technologies');
+  async down (queryInterface) {
+    await queryInterface.dropTable('advance_technologies')
   }
-};
+}

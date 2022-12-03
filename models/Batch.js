@@ -1,23 +1,26 @@
-module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
+module.export = (sequelize, DataTypes) => {
+  const Batch = sequelize.define('Batch', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false
     },
-    email: {
-      type: DataTypes.STRING,
-      unique: true,
-      allowNull: false
-    },
-    password: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    profile_photo_path: {
-      type: DataTypes.STRING,
-      allowNull: true
+    start_date: {
+      type: DataTypes.DATEONLY,
+      allowNull: false
+    },
+    end_date: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    status: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
     created_at: {
       type: 'TIMESTAMP',
@@ -31,8 +34,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   },
   {
-    tableName: 'users'
-  })
+    tableName: 'batches'
+  }
+  )
 
-  return User
+  return Batch
 }
