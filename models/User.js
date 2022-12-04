@@ -1,38 +1,25 @@
+'use strict'
+const { Model } = require('sequelize')
+
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-      allowNull: false
-    },
-    email: {
-      type: DataTypes.STRING,
-      unique: true,
-      allowNull: false
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    profile_photo_path: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    created_at: {
-      type: 'TIMESTAMP',
-      defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
-      allowNull: false
-    },
-    updated_at: {
-      type: 'TIMESTAMP',
-      defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
-      allowNull: false
+  class User extends Model {
+    static associate (models) {
+      // define association here
     }
-  },
-  {
-    tableName: 'users'
-  })
+  }
+
+  User.init(
+    {
+      name: DataTypes.STRING,
+      email: DataTypes.STRING,
+      password: DataTypes.STRING,
+      profile_photo_path: DataTypes.STRING
+    },
+    {
+      sequelize,
+      modelName: 'User',
+      tableName: 'users'
+    })
 
   return User
 }

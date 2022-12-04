@@ -1,40 +1,25 @@
-module.exports = (sequelize, DataTypes) => {
-  const Category = sequelize.define('Category', {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-      allowNull: false
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    status: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    created_at: {
-      type: 'TIMESTAMP',
-      defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
-      allowNull: false
-    },
-    updated_at: {
-      type: 'TIMESTAMP',
-      defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
-      allowNull: false
-    }
-  },
-  {
-    tableName: 'categories'
-  })
+'use strict'
+const { Model } = require('sequelize')
 
-  Category.associate = (models) => {
-    Category.hasMany(models.Startup, {
-      as: 'startups',
-      foreignKey: 'category_id'
-    })
+module.exports = (sequelize, DataTypes) => {
+  class Category extends Model {
+    static associate (models) {
+      Category.hasMany(models.Startup, {
+        foreignKey: 'category_id'
+      })
+    }
   }
+
+  Category.init(
+    {
+      name: DataTypes.STRING,
+      status: DataTypes.INTEGER
+    },
+    {
+      sequelize,
+      modelName: 'Category',
+      tableName: 'categories'
+    })
 
   return Category
 }
