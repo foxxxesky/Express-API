@@ -66,6 +66,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: false
     },
+    category_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'categories',
+        key: 'id'
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade'
+    },
     company_status: {
       type: DataTypes.STRING,
       allowNull: false
@@ -246,6 +256,13 @@ module.exports = (sequelize, DataTypes) => {
   {
     tableName: 'startups'
   })
+
+  Startup.associate = (models) => {
+    Startup.belongsTo(models.Category, {
+      as: 'categories',
+      foreignKey: 'id'
+    })
+  }
 
   return Startup
 }

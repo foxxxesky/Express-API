@@ -70,6 +70,16 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false
       },
+      category_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'categories',
+          key: 'id'
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade'
+      },
       company_status: {
         type: Sequelize.STRING,
         allowNull: false
@@ -249,7 +259,7 @@ module.exports = {
     })
   },
 
-  async down (queryInterface, Sequelize) {
+  async down (queryInterface) {
     await queryInterface.dropTable('startups')
   }
 }
